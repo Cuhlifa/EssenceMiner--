@@ -22,31 +22,23 @@ public class Bank extends Node{
 		
 		EssenceMiner.MainMiner.ScriptState = "Banking";
 		EssenceMiner.MainMiner.path = PathFinding.generatePath(Player.getPosition(),Game.getDestination(),false);
+		System.out.println("Walking to bank");		
 		
 		if(WebWalking.walkToBank()){
-			
+
 			if(Banking.openBank()){
 				
-				Timing.waitCondition(new Condition() {
-					
-					@Override
-					public boolean active() {
-						
-						return Banking.isBankScreenOpen();
-						
-					}
-					
-				}, 4000);
+				System.out.println("Opening bank");		
+				General.sleep(300,550);
 				
-				//double check if condition fails
 				if(Banking.isBankScreenOpen()){
-					
+					System.out.println("Bank is open");		
 					Banking.depositAllExcept(EssenceMiner.MainMiner.PICKAXES);
 					General.sleep(EssenceMiner.AntiBan.DELAY_TRACKER.NEW_OBJECT.next());
 					EssenceMiner.AntiBan.DELAY_TRACKER.NEW_OBJECT.reset();
 					Banking.close();
 					General.sleep(100, 250);
-					WebWalking.walkTo(WalkToAubury.AuburyTile);
+					Walking.blindWalkTo(WalkToAubury.AuburyTile);
 					EssenceMiner.MainMiner.InventoryCount = 0;
 					
 				}

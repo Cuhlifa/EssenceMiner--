@@ -73,6 +73,8 @@ public class EssenceMiner extends Script implements Painting{
 
 		if(Login.getLoginState() == STATE.INGAME){
 			
+			System.out.println("Starting Script");
+			
 			//Init variables
 			MainMiner = this;
 			General.useAntiBanCompliance(true);
@@ -103,10 +105,9 @@ public class EssenceMiner extends Script implements Painting{
 		//Node loop
 		while (true) {
 
-			System.out.println(ScriptState);
-			
 			if(Login.getLoginState() == STATE.INGAME){
 				
+				System.out.println("Checking Nodes");
 				for(Node node : Nodes){
 					
 					if(node.validate()){node.execute();}
@@ -122,7 +123,7 @@ public class EssenceMiner extends Script implements Painting{
 	}
 
 	public boolean isInMine(){
-
+		System.out.println("Checking is in mine");
 		if((Objects.find(17, 1441,1440).length > 0)){
 			
 			if(Objects.find(30, "Rune Essence","Pure Essence").length > 0){

@@ -25,24 +25,25 @@ public class WalkToAubury extends Node{
 	@Override
 	public void execute() {
 		
-		EssenceMiner.MainMiner.ScriptState = "Walking To Aubury";
-		if(PathFinding.distanceTo(AuburyTile, false) > 3){WebWalking.walkTo(AuburyTile);}
+		if(PathFinding.distanceTo(AuburyTile, false) > 3){Walking.blindWalkTo(AuburyTile);}
 		RSNPC[] Aubury  = NPCs.find("Aubury");
 		
+		System.out.println("Walking to aubury");
+		
 		if(Aubury != null && Aubury.length > 0){
-			
+			System.out.println("Aubury wasn't null");
 			if(PathFinding.canReach(Aubury[0].getPosition(), false)){
-				
+				System.out.println("Aubury is reachable");
 				if(Aubury[0].isOnScreen()){
-					
+					System.out.println("Aubury is on screen");
 					Camera.setCameraRotation(Camera.getTileAngle(Aubury[0].getPosition()) - General.random(-30, 30));
 					General.sleep(100, 260);
 					if(!EssenceMiner.MainMiner.isInMine() && Aubury[0].getModel() != null){DynamicClicking.clickRSModel(Aubury[0].getModel(), "Teleport");}
 					
 				}else{
 					
-					if(WebWalking.walkTo(AuburyTile)){
-						
+					if(Walking.blindWalkTo(AuburyTile)){
+						System.out.println("Aubury is being walked to");
 						Camera.setCameraRotation(Camera.getTileAngle(Aubury[0].getPosition()) - General.random(-30, 30));
 						General.sleep(100, 260);
 						if(!EssenceMiner.MainMiner.isInMine() && Aubury[0].getModel() != null){DynamicClicking.clickRSModel(Aubury[0].getModel(), "Teleport");}
@@ -52,6 +53,8 @@ public class WalkToAubury extends Node{
 				}
 				
 			}else{
+				
+				System.out.println("checking doors");
 				
 				RSTile[] path = PathFinding.generatePath(Player.getPosition(), AuburyTile, false);
 				
@@ -74,7 +77,7 @@ public class WalkToAubury extends Node{
 			
 		}else{
 			
-			Walking.walkTo(AuburyTile);
+			Walking.blindWalkTo(AuburyTile);
 			
 		}
 		
