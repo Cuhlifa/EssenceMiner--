@@ -26,7 +26,7 @@ public class WalkToAubury extends Node{
 	public void execute() {
 		
 		EssenceMiner.MainMiner.ScriptState = "Walking To Aubury";
-		WebWalking.walkTo(AuburyTile);
+		if(PathFinding.distanceTo(AuburyTile, false) > 3){WebWalking.walkTo(AuburyTile);}
 		RSNPC[] Aubury  = NPCs.find("Aubury");
 		
 		if(Aubury != null && Aubury.length > 0){
