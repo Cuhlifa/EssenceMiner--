@@ -25,25 +25,31 @@ public class Mine extends Node {
 				"Pure Essence");
 
 		if (RuneEssence[0].isOnScreen()) {
-			
+
 			System.out.println("Rune Essence was on screen");
-			
-			DynamicClicking.clickRSModel(RuneEssence[0].getModel(), "Mine");
-			
+
+			if (RuneEssence[0].getModel() != null) {
+				DynamicClicking.clickRSModel(RuneEssence[0].getModel(), "Mine");
+			}
+
+			EssenceMiner.MainMiner.Essence = RuneEssence[0].getModel();
 
 		} else {
 
 			System.out.println("Walkign to Rune Essence");
-			
+
 			if (Walking.blindWalkTo(RuneEssence[0].getPosition())) {
 
 				Camera.setCameraRotation(Camera.getTileAngle(RuneEssence[0]
 						.getPosition()) - General.random(-30, 30));
-				
+
 				General.sleep(100, 260);
-				
-				DynamicClicking.clickRSModel(RuneEssence[0].getModel(), "Mine");
-				
+
+				if (RuneEssence[0].getModel() != null) {
+					DynamicClicking.clickRSModel(RuneEssence[0].getModel(),
+							"Mine");
+				}
+
 				EssenceMiner.MainMiner.Essence = RuneEssence[0].getModel();
 
 			}
@@ -55,9 +61,9 @@ public class Mine extends Node {
 	}
 
 	public boolean isInMine() {
-		
+
 		System.out.println("Checking is in mine");
-		
+
 		if ((Objects.find(17, 1441, 1440).length > 0)) {
 
 			if (Objects.find(30, "Rune Essence", "Pure Essence").length > 0) {
@@ -82,9 +88,9 @@ public class Mine extends Node {
 			return true;
 
 		} else {
-			
+
 			return false;
-			
+
 		}
 
 	}

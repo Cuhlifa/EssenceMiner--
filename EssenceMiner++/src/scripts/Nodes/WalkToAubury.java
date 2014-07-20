@@ -5,6 +5,7 @@ import org.tribot.api.General;
 import org.tribot.api2007.Camera;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.NPCs;
+import org.tribot.api2007.Objects;
 import org.tribot.api2007.PathFinding;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
@@ -107,10 +108,28 @@ public class WalkToAubury extends Node {
 
 	}
 
+	public boolean isInMine() {
+		System.out.println("Checking is in mine");
+		if ((Objects.find(17, 1441, 1440).length > 0)) {
+
+			if (Objects.find(30, "Rune Essence", "Pure Essence").length > 0) {
+
+				return true;
+
+			} else {
+				return false;
+			}
+
+		} else {
+			return false;
+		}
+
+	}
+
 	@Override
 	public boolean validate() {
 
-		if (!Inventory.isFull() && !EssenceMiner.MainMiner.isInMine()) {
+		if (!Inventory.isFull() && !isInMine()) {
 
 			return true;
 

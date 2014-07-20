@@ -16,7 +16,6 @@ import org.tribot.api.util.ABCUtil;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Login;
 import org.tribot.api2007.Objects;
-import org.tribot.api2007.Projection;
 import org.tribot.api2007.Skills;
 import org.tribot.api2007.Login.STATE;
 import org.tribot.api2007.Skills.SKILLS;
@@ -119,17 +118,17 @@ public class EssenceMiner extends Script implements Painting {
 
 		}
 
-		if (path != null && path.length > 0) {
-
-			for (RSTile tile : path) {
-
-				if (tile.isOnScreen()) {
-					g2d.draw(Projection.getTileBoundsPoly(tile, 0));
-				}
-
-			}
-
-		}
+		// if (path != null && path.length > 0) {
+		//
+		// for (RSTile tile : path) {
+		//
+		// if (tile.isOnScreen()) {
+		// g2d.draw(Projection.getTileBoundsPoly(tile, 0));
+		// }
+		//
+		// }
+		//
+		// }
 
 		if (Essence != null) {
 
