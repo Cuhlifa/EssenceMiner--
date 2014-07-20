@@ -2,11 +2,13 @@ package scripts.Nodes;
 
 import java.awt.Point;
 
+import org.tribot.api.DynamicClicking;
 import org.tribot.api.General;
 import org.tribot.api2007.Camera;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.NPCs;
 import org.tribot.api2007.Objects;
+import org.tribot.api2007.PathFinding;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.types.RSNPC;
@@ -28,7 +30,7 @@ public class LeaveEssence extends Node {
 
 			System.out.println("Portals wasn't null");
 
-			if (Portal[0].isOnScreen() && !Player.isMoving()) {
+			if (Portal[0].isOnScreen() && !Player.isMoving() && PathFinding.distanceTo(Portal[0].getPosition(), true) < 5) {
 
 				System.out.println("Portals is on screen");
 
@@ -37,7 +39,11 @@ public class LeaveEssence extends Node {
 
 				General.sleep(100, 260);
 
-				Portal[0].click("Exit", "Use", "Leave");
+				if(Portal[0] != null && !DynamicClicking.clickRSTile(Portal[0].getPosition(), 1)){
+					
+					if(Portal.length > 1){DynamicClicking.clickRSTile(Portal[1].getPosition(), 1);}
+					
+				}
 
 			} else {
 
@@ -54,7 +60,11 @@ public class LeaveEssence extends Node {
 
 					General.sleep(100, 175);
 
-					Portal[0].click("Exit", "Use", "Leave");
+					if(Portal[0] != null && !DynamicClicking.clickRSTile(Portal[0].getPosition(), 1)){
+						
+						if(Portal.length > 1){DynamicClicking.clickRSTile(Portal[1].getPosition(), 1);}
+						
+					}
 
 				}
 

@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Polygon;
 import java.net.URL;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 import org.tribot.api.General;
@@ -26,12 +27,7 @@ import org.tribot.script.ScriptManifest;
 import org.tribot.script.interfaces.Painting;
 
 import scripts.EssenceMinerExtras.Node;
-import scripts.Nodes.AntiBan;
-import scripts.Nodes.Bank;
-import scripts.Nodes.LeaveEssence;
-import scripts.Nodes.Mine;
-import scripts.Nodes.Varibles;
-import scripts.Nodes.WalkToAubury;
+import scripts.Nodes.*;
 
 @ScriptManifest(authors = { "Peticca10" }, category = "Mining", name = "EssenceMiner++")
 public class EssenceMiner extends Script implements Painting {

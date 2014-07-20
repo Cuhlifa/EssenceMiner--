@@ -6,6 +6,8 @@ import org.tribot.api2007.Skills.SKILLS;
 import scripts.EssenceMiner;
 import scripts.EssenceMinerExtras.Node;
 
+
+
 public class AntiBan extends Node {
 
 	@Override
@@ -42,7 +44,7 @@ public class AntiBan extends Node {
 	@Override
 	public boolean validate() {
 
-		return Player.getAnimation() == 624;
+		return Player.getAnimation() != -1;
 
 	}
 
