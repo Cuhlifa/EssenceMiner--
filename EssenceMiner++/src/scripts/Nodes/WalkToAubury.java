@@ -10,7 +10,9 @@ import org.tribot.api2007.PathFinding;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.ext.Doors;
+import org.tribot.api2007.types.RSModel;
 import org.tribot.api2007.types.RSNPC;
+import org.tribot.api2007.types.RSObject;
 import org.tribot.api2007.types.RSTile;
 
 import scripts.EssenceMiner;
@@ -45,8 +47,9 @@ public class WalkToAubury extends Node {
 							.getPosition()) - General.random(-30, 30));
 					General.sleep(100, 260);
 
+					RSModel AuburyModel = Aubury[0].getModel();
 					if (!EssenceMiner.MainMiner.isInMine()
-							&& Aubury[0].getModel() != null) {
+							&& AuburyModel != null) {
 
 						DynamicClicking.clickRSModel(Aubury[0].getModel(),
 								"Teleport");
@@ -64,10 +67,11 @@ public class WalkToAubury extends Node {
 
 						General.sleep(100, 260);
 
+						RSModel AuburyModel1 = Aubury[0].getModel();
 						if (!EssenceMiner.MainMiner.isInMine()
-								&& Aubury[0].getModel() != null) {
+								&& AuburyModel1 != null) {
 
-							DynamicClicking.clickRSModel(Aubury[0].getModel(),
+							DynamicClicking.clickRSModel(AuburyModel1,
 									"Teleport");
 
 						}
@@ -87,7 +91,8 @@ public class WalkToAubury extends Node {
 
 					for (RSTile tile : path) {
 
-						if (Doors.getDoorAt(tile) != null
+						RSObject Doortile = Doors.getDoorAt(tile);
+						if (Doortile != null
 								|| Doors.isDoorAt(tile, false)) {
 
 							Doors.handleDoorAt(tile, true);

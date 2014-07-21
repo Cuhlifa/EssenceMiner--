@@ -7,6 +7,7 @@ import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Objects;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
+import org.tribot.api2007.types.RSModel;
 import org.tribot.api2007.types.RSObject;
 
 import scripts.EssenceMiner;
@@ -28,7 +29,8 @@ public class Mine extends Node {
 
 			System.out.println("Rune Essence was on screen");
 
-			if (RuneEssence[0].getModel() != null) {
+			RSModel RuneEssenceModel = RuneEssence[0].getModel();
+			if (RuneEssenceModel != null) {
 				DynamicClicking.clickRSModel(RuneEssence[0].getModel(), "Mine");
 			}
 
@@ -45,7 +47,8 @@ public class Mine extends Node {
 
 				General.sleep(100, 260);
 
-				if (RuneEssence[0].getModel() != null) {
+				RSModel RuneEssenceModel = RuneEssence[0].getModel();
+				if (RuneEssenceModel != null) {
 					DynamicClicking.clickRSModel(RuneEssence[0].getModel(),
 							"Mine");
 				}

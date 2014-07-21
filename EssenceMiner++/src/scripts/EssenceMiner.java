@@ -139,6 +139,7 @@ public class EssenceMiner extends Script implements Painting {
 
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Verdana", Font.BOLD, 12));
+		g.drawString("RunTime: " +  hours + "H " + minutes + "M " + seconds + "S", 15, 40);
 		g.drawString(MinedOres + " (" + MinedOresHour + ")", 85, 385);
 		g.drawString(GainedXP + " (" + GainedXPHour + ")", 307, 385);
 
