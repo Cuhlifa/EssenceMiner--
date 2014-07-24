@@ -25,99 +25,105 @@ public class WalkToAubury extends Node {
 	@Override
 	public void execute() {
 
-		if (PathFinding.distanceTo(AuburyTile, false) > 3) {
+		if (PathFinding.distanceTo(AuburyTile, false) > 5) {
+			
 			Walking.blindWalkTo(AuburyTile);
-		}
-		RSNPC[] Aubury = NPCs.find("Aubury");
+			
+		}else{
+			
+			RSNPC[] Aubury = NPCs.find("Aubury");
 
-		System.out.println("Walking to aubury");
+			System.out.println("Walking to aubury");
 
-		if (Aubury != null && Aubury.length > 0) {
+			if (Aubury != null && Aubury.length > 0) {
 
-			System.out.println("Aubury wasn't null");
+				System.out.println("Aubury wasn't null");
 
-			if (PathFinding.canReach(Aubury[0].getPosition(), false)) {
-				System.out.println("Aubury is reachable");
+				if (PathFinding.canReach(Aubury[0].getPosition(), false)) {
+					System.out.println("Aubury is reachable");
 
-				if (Aubury[0].isOnScreen()) {
+					if (Aubury[0].isOnScreen()) {
 
-					System.out.println("Aubury is on screen");
+						System.out.println("Aubury is on screen");
 
-					Camera.setCameraRotation(Camera.getTileAngle(Aubury[0]
-							.getPosition()) - General.random(-30, 30));
-					General.sleep(100, 260);
+						Camera.setCameraRotation(Camera.getTileAngle(Aubury[0]
+								.getPosition()) - General.random(-30, 30));
+						General.sleep(100, 260);
 
-					RSModel AuburyModel = Aubury[0].getModel();
-					if (!EssenceMiner.MainMiner.isInMine()
-							&& AuburyModel != null) {
+						RSModel AuburyModel = Aubury[0].getModel();
+						if (!EssenceMiner.MainMiner.isInMine()
+								&& AuburyModel != null) {
 
-						DynamicClicking.clickRSModel(Aubury[0].getModel(),
-								"Teleport");
+							DynamicClicking.clickRSModel(Aubury[0].getModel(),
+									"Teleport");
+
+						}
+
+					} else {
+
+						if (Walking.blindWalkTo(AuburyTile)) {
+
+							System.out.println("Aubury is being walked to");
+
+							Camera.setCameraRotation(Camera.getTileAngle(Aubury[0]
+									.getPosition()) - General.random(-30, 30));
+
+							General.sleep(100, 260);
+
+							RSModel AuburyModel1 = Aubury[0].getModel();
+							if (!EssenceMiner.MainMiner.isInMine()
+									&& AuburyModel1 != null) {
+
+								DynamicClicking.clickRSModel(AuburyModel1,
+										"Teleport");
+
+							}
+
+						}
 
 					}
 
 				} else {
 
-					if (Walking.blindWalkTo(AuburyTile)) {
+					System.out.println("checking doors");
 
-						System.out.println("Aubury is being walked to");
+					RSTile[] path = PathFinding.generatePath(Player.getPosition(),
+							AuburyTile, false);
 
-						Camera.setCameraRotation(Camera.getTileAngle(Aubury[0]
-								.getPosition()) - General.random(-30, 30));
+					if (path != null && path.length > 0) {
 
-						General.sleep(100, 260);
+						for (RSTile tile : path) {
 
-						RSModel AuburyModel1 = Aubury[0].getModel();
-						if (!EssenceMiner.MainMiner.isInMine()
-								&& AuburyModel1 != null) {
+							RSObject Doortile = Doors.getDoorAt(tile);
+							if (Doortile != null
+									|| Doors.isDoorAt(tile, false)) {
 
-							DynamicClicking.clickRSModel(AuburyModel1,
-									"Teleport");
+								Doors.handleDoorAt(tile, true);
 
-						}
-
-					}
-
-				}
-
-			} else {
-
-				System.out.println("checking doors");
-
-				RSTile[] path = PathFinding.generatePath(Player.getPosition(),
-						AuburyTile, false);
-
-				if (path != null && path.length > 0) {
-
-					for (RSTile tile : path) {
-
-						RSObject Doortile = Doors.getDoorAt(tile);
-						if (Doortile != null
-								|| Doors.isDoorAt(tile, false)) {
-
-							Doors.handleDoorAt(tile, true);
+							}
 
 						}
 
 					}
 
 				}
+				
+				return;
 
 			}
-
-		} else {
-
-			Walking.blindWalkTo(AuburyTile);
-
+			
 		}
-
+			
 	}
 
 	public boolean isInMine() {
-		System.out.println("Checking is in mine");
-		if ((Objects.find(17, 1441, 1440).length > 0)) {
 
-			if (Objects.find(30, "Rune Essence", "Pure Essence").length > 0) {
+		RSObject[] Walls = Objects.find(17, 1441, 1440);
+		RSObject[] Essence = Objects.find(30, "Rune Essence", "Pure Essence");
+		
+		if (Walls != null && Walls.length > 0) {
+
+			if (Essence != null && Essence.length > 0) {
 
 				return true;
 

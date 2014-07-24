@@ -12,6 +12,7 @@ import org.tribot.api2007.PathFinding;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.types.RSNPC;
+import org.tribot.api2007.types.RSObject;
 
 import scripts.EssenceMiner;
 import scripts.EssenceMinerExtras.Node;
@@ -33,9 +34,9 @@ public class LeaveEssence extends Node {
 			if (Portal[0].isOnScreen() && !Player.isMoving() && PathFinding.distanceTo(Portal[0].getPosition(), true) < 5) {
 
 				System.out.println("Portals is on screen");
+				
 
-				Camera.setCameraRotation(Camera.getTileAngle(Portal[0]
-						.getPosition()) - General.random(-30, 30));
+				Camera.setCameraRotation(Camera.getTileAngle(Portal[0].getPosition()) - General.random(-30, 30));
 
 				General.sleep(100, 260);
 
@@ -51,8 +52,7 @@ public class LeaveEssence extends Node {
 
 					System.out.println("Portals is being walked to");
 
-					Camera.setCameraRotation(Camera.getTileAngle(Portal[0]
-							.getPosition()) - General.random(-30, 30));
+					Camera.setCameraRotation(Camera.getTileAngle(Portal[0].getPosition()) - General.random(-30, 30));
 
 					General.sleep(100, 260);
 
@@ -72,13 +72,18 @@ public class LeaveEssence extends Node {
 
 		}
 
+		return;
+		
 	}
 
 	public boolean isInMine() {
-		System.out.println("Checking is in mine");
-		if ((Objects.find(17, 1441, 1440).length > 0)) {
 
-			if (Objects.find(30, "Rune Essence", "Pure Essence").length > 0) {
+		RSObject[] Walls = Objects.find(17, 1441, 1440);
+		RSObject[] Essence = Objects.find(30, "Rune Essence", "Pure Essence");
+		
+		if (Walls != null && Walls.length > 0) {
+
+			if (Essence != null && Essence.length > 0) {
 
 				return true;
 

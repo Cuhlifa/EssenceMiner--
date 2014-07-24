@@ -9,6 +9,7 @@ import org.tribot.api2007.PathFinding;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.WebWalking;
+import org.tribot.api2007.types.RSObject;
 
 import scripts.EssenceMiner;
 import scripts.EssenceMinerExtras.Node;
@@ -23,7 +24,11 @@ public class Bank extends Node {
 				Player.getPosition(), Game.getDestination(), false);
 		System.out.println("Walking to bank");
 
-		if (WebWalking.walkToBank()) {
+		if(!Banking.isInBank()){
+		
+			WebWalking.walkToBank();
+			
+		}else{
 
 			if (Banking.openBank()) {
 
@@ -56,13 +61,18 @@ public class Bank extends Node {
 
 		}
 
+		return;
+		
 	}
 
 	public boolean isInMine() {
-		System.out.println("Checking is in mine");
-		if ((Objects.find(17, 1441, 1440).length > 0)) {
 
-			if (Objects.find(30, "Rune Essence", "Pure Essence").length > 0) {
+		RSObject[] Walls = Objects.find(17, 1441, 1440);
+		RSObject[] Essence = Objects.find(30, "Rune Essence", "Pure Essence");
+		
+		if (Walls != null && Walls.length > 0) {
+
+			if (Essence != null && Essence.length > 0) {
 
 				return true;
 

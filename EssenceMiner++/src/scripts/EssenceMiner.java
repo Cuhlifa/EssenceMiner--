@@ -168,6 +168,7 @@ public class EssenceMiner extends Script implements Painting {
 			Nodes.add(new AntiBan());
 			Nodes.add(new Varibles());
 			InventoryCount = Inventory.getCount("Rune Essence");
+			
 			try {
 				Overlay = ImageIO.read(new URL("http://imgur.com/54WwU6p.png"));
 			} catch (Exception e) {
