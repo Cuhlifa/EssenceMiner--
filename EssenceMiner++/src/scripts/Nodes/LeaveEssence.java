@@ -27,7 +27,7 @@ public class LeaveEssence extends Node {
 		System.out.println("Leaving Mine");
 		RSNPC[] Portal = NPCs.findNearest("null", "Portal");
 
-		if (Portal != null && Portal.length > 0) {
+		if (Portal != null && Portal.length > 0 && Portal[0] != null) {
 
 			System.out.println("Portals wasn't null");
 
