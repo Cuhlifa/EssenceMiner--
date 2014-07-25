@@ -85,6 +85,8 @@ public class EssenceMiner extends Script implements Painting {
 
 			if (Login.getLoginState() == STATE.INGAME) {
 
+				Mouse.setSpeed(General.random(110, 140));
+				
 				System.out.println("Checking Nodes");
 				for (Node node : nodes) {
 
@@ -106,8 +108,6 @@ public class EssenceMiner extends Script implements Painting {
 	public void onPaint(Graphics g) {
 
 		Graphics2D g2d = (Graphics2D) g;
-
-		Mouse.setSpeed(General.random(110, 140));
 
 		// draw overlay
 		if (Login.getLoginState() == STATE.INGAME && overlay != null) {
