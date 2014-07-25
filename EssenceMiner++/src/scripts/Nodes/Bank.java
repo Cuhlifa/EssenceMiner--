@@ -19,16 +19,16 @@ public class Bank extends Node {
 	@Override
 	public void execute() {
 
-		EssenceMiner.MainMiner.ScriptState = "Banking";
-		EssenceMiner.MainMiner.path = PathFinding.generatePath(
+		EssenceMiner.mainMiner.scriptState = "Banking";
+		EssenceMiner.mainMiner.path = PathFinding.generatePath(
 				Player.getPosition(), Game.getDestination(), false);
 		System.out.println("Walking to bank");
 
-		if(!Banking.isInBank()){
-		
+		if (!Banking.isInBank()) {
+
 			WebWalking.walkToBank();
-			
-		}else{
+
+		} else {
 
 			if (Banking.openBank()) {
 
@@ -40,12 +40,12 @@ public class Bank extends Node {
 
 					System.out.println("Bank is open");
 
-					Banking.depositAllExcept(EssenceMiner.MainMiner.PICKAXES);
+					Banking.depositAllExcept(EssenceMiner.PICKAXES);
 
-					General.sleep(EssenceMiner.AntiBan.DELAY_TRACKER.NEW_OBJECT
+					General.sleep(EssenceMiner.antiBan.DELAY_TRACKER.NEW_OBJECT
 							.next());
 
-					EssenceMiner.AntiBan.DELAY_TRACKER.NEW_OBJECT.reset();
+					EssenceMiner.antiBan.DELAY_TRACKER.NEW_OBJECT.reset();
 
 					Banking.close();
 
@@ -53,7 +53,7 @@ public class Bank extends Node {
 
 					Walking.blindWalkTo(WalkToAubury.AuburyTile);
 
-					EssenceMiner.MainMiner.InventoryCount = 0;
+					EssenceMiner.mainMiner.inventoryCount = 0;
 
 				}
 
@@ -62,14 +62,14 @@ public class Bank extends Node {
 		}
 
 		return;
-		
+
 	}
 
 	public boolean isInMine() {
 
 		RSObject[] Walls = Objects.find(17, 1441, 1440);
 		RSObject[] Essence = Objects.find(30, "Rune Essence", "Pure Essence");
-		
+
 		if (Walls != null && Walls.length > 0) {
 
 			if (Essence != null && Essence.length > 0) {

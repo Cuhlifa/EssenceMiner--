@@ -32,31 +32,33 @@ import scripts.Nodes.*;
 @ScriptManifest(authors = { "Peticca10" }, category = "Mining", name = "EssenceMiner++")
 public class EssenceMiner extends Script implements Painting {
 
-	public static ABCUtil AntiBan = new ABCUtil();
-	public static EssenceMiner MainMiner;
-	public int CurrentLevel;
-	public int CurrentXP;
-	public RSModel Essence = null;
-	public int GainedLevel;
-	public int GainedXP;
-	public int GainedXPHour = 0;
+	public static ABCUtil antiBan = new ABCUtil();
+	public static EssenceMiner mainMiner;
+	public int currentLevel;
+	public int currentXP;
+	public RSModel essence = null;
+	public int gainedLevel;
+	public int gainedXP;
+	public int gainedXPHour = 0;
 	public long hours;
-	public int InventoryCount;
-	public int MinedOres = 0;
-	public int MinedOresHour = 0;
+	public int inventoryCount;
+	public int minedOres = 0;
+	public int minedOresHour = 0;
 	public long minutes;
-	public ArrayList<Node> Nodes = new ArrayList<>();
-	public Image Overlay;
+	public ArrayList<Node> nodes = new ArrayList<>();
+	public Image overlay;
 	public RSTile[] path;
-	public final int[] PICKAXES = { 1265, 1267, 1269, 1271, 1273, 1275 };
-	public int Profit = 0;
-	public int ProfitHour = 0;
-	public long RunTime;
-	public String ScriptState = "Idle";
+	public static final String[] PICKAXES = { "Bronze pickaxe", "Iron pickaxe",
+			"Steel pickaxe", "Mithril pickaxe", "Adamant pickaxe",
+			"Rune pickaxe", "Dragon pickaxe" };
+	public int profit = 0;
+	public int profitHour = 0;
+	public long runTime;
+	public String scriptState = "Idle";
 	public long seconds;
-	public int StartingLevel;
-	public int StartingXP;
-	public long StartTime;
+	public int startingLevel;
+	public int startingXP;
+	public long startTime;
 
 	public boolean isInMine() {
 		System.out.println("Checking is in mine");
@@ -84,7 +86,7 @@ public class EssenceMiner extends Script implements Painting {
 			if (Login.getLoginState() == STATE.INGAME) {
 
 				System.out.println("Checking Nodes");
-				for (Node node : Nodes) {
+				for (Node node : nodes) {
 
 					if (node.validate()) {
 						node.execute();
@@ -108,9 +110,9 @@ public class EssenceMiner extends Script implements Painting {
 		Mouse.setSpeed(General.random(110, 140));
 
 		// draw overlay
-		if (Login.getLoginState() == STATE.INGAME && Overlay != null) {
+		if (Login.getLoginState() == STATE.INGAME && overlay != null) {
 
-			g.drawImage(Overlay, 8, 306, null);
+			g.drawImage(overlay, 8, 306, null);
 
 		}
 
@@ -126,9 +128,9 @@ public class EssenceMiner extends Script implements Painting {
 		//
 		// }
 
-		if (Essence != null) {
+		if (essence != null) {
 
-			for (Polygon p : Essence.getTriangles()) {
+			for (Polygon p : essence.getTriangles()) {
 
 				g2d.setColor(Color.RED);
 				g2d.draw(p);
@@ -139,12 +141,13 @@ public class EssenceMiner extends Script implements Painting {
 
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Verdana", Font.BOLD, 12));
-		g.drawString("RunTime: " +  hours + "H " + minutes + "M " + seconds + "S", 15, 40);
-		g.drawString(MinedOres + " (" + MinedOresHour + ")", 85, 385);
-		g.drawString(GainedXP + " (" + GainedXPHour + ")", 307, 385);
+		g.drawString("RunTime: " + hours + "H " + minutes + "M " + seconds
+				+ "S", 15, 40);
+		g.drawString(minedOres + " (" + minedOresHour + ")", 85, 385);
+		g.drawString(gainedXP + " (" + gainedXPHour + ")", 307, 385);
 
-		g.drawString(Profit + " (" + ProfitHour + ")", 85, 438);
-		g.drawString(CurrentLevel + " (" + GainedLevel + ")", 307, 438);
+		g.drawString(profit + " (" + profitHour + ")", 85, 438);
+		g.drawString(currentLevel + " (" + gainedLevel + ")", 307, 438);
 
 	}
 
@@ -156,21 +159,21 @@ public class EssenceMiner extends Script implements Painting {
 			System.out.println("Starting Script");
 
 			// Init variables
-			MainMiner = this;
+			mainMiner = this;
 			General.useAntiBanCompliance(true);
-			StartingLevel = SKILLS.MINING.getActualLevel();
-			StartingXP = Skills.getXP(SKILLS.MINING);
-			StartTime = System.currentTimeMillis();
-			Nodes.add(new Bank());
-			Nodes.add(new LeaveEssence());
-			Nodes.add(new Mine());
-			Nodes.add(new WalkToAubury());
-			Nodes.add(new AntiBan());
-			Nodes.add(new Varibles());
-			InventoryCount = Inventory.getCount("Rune Essence");
-			
+			startingLevel = SKILLS.MINING.getActualLevel();
+			startingXP = Skills.getXP(SKILLS.MINING);
+			startTime = System.currentTimeMillis();
+			nodes.add(new Bank());
+			nodes.add(new LeaveEssence());
+			nodes.add(new Mine());
+			nodes.add(new WalkToAubury());
+			nodes.add(new AntiBan());
+			nodes.add(new Varibles());
+			inventoryCount = Inventory.getCount("Rune Essence");
+
 			try {
-				Overlay = ImageIO.read(new URL("http://imgur.com/54WwU6p.png"));
+				overlay = ImageIO.read(new URL("http://imgur.com/54WwU6p.png"));
 			} catch (Exception e) {
 			}
 			Loop();

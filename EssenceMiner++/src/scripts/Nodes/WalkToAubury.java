@@ -26,11 +26,11 @@ public class WalkToAubury extends Node {
 	public void execute() {
 
 		if (PathFinding.distanceTo(AuburyTile, false) > 5) {
-			
+
 			Walking.blindWalkTo(AuburyTile);
-			
-		}else{
-			
+
+		} else {
+
 			RSNPC[] Aubury = NPCs.find("Aubury");
 
 			System.out.println("Walking to aubury");
@@ -51,7 +51,7 @@ public class WalkToAubury extends Node {
 						General.sleep(100, 260);
 
 						RSModel AuburyModel = Aubury[0].getModel();
-						if (!EssenceMiner.MainMiner.isInMine()
+						if (!EssenceMiner.mainMiner.isInMine()
 								&& AuburyModel != null) {
 
 							DynamicClicking.clickRSModel(Aubury[0].getModel(),
@@ -65,13 +65,14 @@ public class WalkToAubury extends Node {
 
 							System.out.println("Aubury is being walked to");
 
-							Camera.setCameraRotation(Camera.getTileAngle(Aubury[0]
-									.getPosition()) - General.random(-30, 30));
+							Camera.setCameraRotation(Camera
+									.getTileAngle(Aubury[0].getPosition())
+									- General.random(-30, 30));
 
 							General.sleep(100, 260);
 
 							RSModel AuburyModel1 = Aubury[0].getModel();
-							if (!EssenceMiner.MainMiner.isInMine()
+							if (!EssenceMiner.mainMiner.isInMine()
 									&& AuburyModel1 != null) {
 
 								DynamicClicking.clickRSModel(AuburyModel1,
@@ -87,16 +88,15 @@ public class WalkToAubury extends Node {
 
 					System.out.println("checking doors");
 
-					RSTile[] path = PathFinding.generatePath(Player.getPosition(),
-							AuburyTile, false);
+					RSTile[] path = PathFinding.generatePath(
+							Player.getPosition(), AuburyTile, false);
 
 					if (path != null && path.length > 0) {
 
 						for (RSTile tile : path) {
 
 							RSObject Doortile = Doors.getDoorAt(tile);
-							if (Doortile != null
-									|| Doors.isDoorAt(tile, false)) {
+							if (Doortile != null || Doors.isDoorAt(tile, false)) {
 
 								Doors.handleDoorAt(tile, true);
 
@@ -107,20 +107,20 @@ public class WalkToAubury extends Node {
 					}
 
 				}
-				
+
 				return;
 
 			}
-			
+
 		}
-			
+
 	}
 
 	public boolean isInMine() {
 
 		RSObject[] Walls = Objects.find(17, 1441, 1440);
 		RSObject[] Essence = Objects.find(30, "Rune Essence", "Pure Essence");
-		
+
 		if (Walls != null && Walls.length > 0) {
 
 			if (Essence != null && Essence.length > 0) {

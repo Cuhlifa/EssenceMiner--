@@ -22,8 +22,8 @@ public class LeaveEssence extends Node {
 	@Override
 	public void execute() {
 
-		EssenceMiner.MainMiner.ScriptState = "Leaving Essence Cavern";
-		EssenceMiner.MainMiner.Essence = null;
+		EssenceMiner.mainMiner.scriptState = "Leaving Essence Cavern";
+		EssenceMiner.mainMiner.essence = null;
 		System.out.println("Leaving Mine");
 		RSNPC[] Portal = NPCs.findNearest("null", "Portal");
 
@@ -31,19 +31,25 @@ public class LeaveEssence extends Node {
 
 			System.out.println("Portals wasn't null");
 
-			if (Portal[0].isOnScreen() && !Player.isMoving() && PathFinding.distanceTo(Portal[0].getPosition(), true) < 5) {
+			if (Portal[0].isOnScreen()
+					&& !Player.isMoving()
+					&& PathFinding.distanceTo(Portal[0].getPosition(), true) < 5) {
 
 				System.out.println("Portals is on screen");
-				
 
-				Camera.setCameraRotation(Camera.getTileAngle(Portal[0].getPosition()) - General.random(-30, 30));
+				Camera.setCameraRotation(Camera.getTileAngle(Portal[0]
+						.getPosition()) - General.random(-30, 30));
 
 				General.sleep(100, 260);
 
-				if(Portal[0] != null && !DynamicClicking.clickRSTile(Portal[0].getPosition(), 1)){
-					
-					if(Portal.length > 1){DynamicClicking.clickRSTile(Portal[1].getPosition(), 1);}
-					
+				if (Portal[0] != null
+						&& !DynamicClicking.clickRSTile(
+								Portal[0].getPosition(), 1)) {
+
+					if (Portal.length > 1) {
+						DynamicClicking.clickRSTile(Portal[1].getPosition(), 1);
+					}
+
 				}
 
 			} else {
@@ -52,7 +58,8 @@ public class LeaveEssence extends Node {
 
 					System.out.println("Portals is being walked to");
 
-					Camera.setCameraRotation(Camera.getTileAngle(Portal[0].getPosition()) - General.random(-30, 30));
+					Camera.setCameraRotation(Camera.getTileAngle(Portal[0]
+							.getPosition()) - General.random(-30, 30));
 
 					General.sleep(100, 260);
 
@@ -60,10 +67,15 @@ public class LeaveEssence extends Node {
 
 					General.sleep(100, 175);
 
-					if(Portal[0] != null && !DynamicClicking.clickRSTile(Portal[0].getPosition(), 1)){
-						
-						if(Portal.length > 1){DynamicClicking.clickRSTile(Portal[1].getPosition(), 1);}
-						
+					if (Portal[0] != null
+							&& !DynamicClicking.clickRSTile(
+									Portal[0].getPosition(), 1)) {
+
+						if (Portal.length > 1) {
+							DynamicClicking.clickRSTile(
+									Portal[1].getPosition(), 1);
+						}
+
 					}
 
 				}
@@ -73,14 +85,14 @@ public class LeaveEssence extends Node {
 		}
 
 		return;
-		
+
 	}
 
 	public boolean isInMine() {
 
 		RSObject[] Walls = Objects.find(17, 1441, 1440);
 		RSObject[] Essence = Objects.find(30, "Rune Essence", "Pure Essence");
-		
+
 		if (Walls != null && Walls.length > 0) {
 
 			if (Essence != null && Essence.length > 0) {

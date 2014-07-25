@@ -8,7 +8,6 @@ import org.tribot.api2007.Objects;
 import org.tribot.api2007.PathFinding;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
-import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSModel;
 import org.tribot.api2007.types.RSObject;
 
@@ -23,32 +22,34 @@ public class Mine extends Node {
 
 		System.out.println("Mining");
 
-		EssenceMiner.MainMiner.ScriptState = "Mining Essence";
+		EssenceMiner.mainMiner.scriptState = "Mining Essence";
 
 		RSObject[] RuneEssence = Objects.findNearest(20, "Rune Essence",
 				"Pure Essence");
 
-		if(RuneEssence != null && RuneEssence.length > 0 && RuneEssence[0] != null){
-			
+		if (RuneEssence != null && RuneEssence.length > 0
+				&& RuneEssence[0] != null) {
+
 			System.out.println("Essence Wasn't null");
-			
-			if(PathFinding.distanceTo(RuneEssence[0].getPosition(), true) > 5){
-				
+
+			if (PathFinding.distanceTo(RuneEssence[0].getPosition(), true) > 5) {
+
 				System.out.println("Walking to essence");
 				Walking.blindWalkTo(RuneEssence[0].getPosition());
-				
-			}else if (RuneEssence[0].isOnScreen()) {
-				
+
+			} else if (RuneEssence[0].isOnScreen()) {
+
 				System.out.println("Rune Essence was on screen");
 
 				RSModel Essence = RuneEssence[0].getModel();
-				if(Essence != null && DynamicClicking.clickRSModel(Essence,"Mine")){
-					
-					EssenceMiner.MainMiner.Essence = RuneEssence[0].getModel();
-					
+				if (Essence != null
+						&& DynamicClicking.clickRSModel(Essence, "Mine")) {
+
+					EssenceMiner.mainMiner.essence = RuneEssence[0].getModel();
+
 				}
 
-				EssenceMiner.MainMiner.Essence = RuneEssence[0].getModel();
+				EssenceMiner.mainMiner.essence = RuneEssence[0].getModel();
 
 			} else {
 
@@ -61,30 +62,30 @@ public class Mine extends Node {
 
 					General.sleep(100, 260);
 
-						RSModel Essence = RuneEssence[0].getModel();
-						if(Essence != null && DynamicClicking.clickRSModel(Essence,"Mine")){
-							
-							EssenceMiner.MainMiner.Essence = RuneEssence[0].getModel();
-							
-						}
+					RSModel Essence = RuneEssence[0].getModel();
+					if (Essence != null
+							&& DynamicClicking.clickRSModel(Essence, "Mine")) {
+
+						EssenceMiner.mainMiner.essence = RuneEssence[0]
+								.getModel();
+
+					}
 
 				}
 
 			}
 
-			EssenceMiner.AntiBan.BOOL_TRACKER.USE_CLOSEST.reset();
-			
+			EssenceMiner.antiBan.BOOL_TRACKER.USE_CLOSEST.reset();
+
 		}
-			
-}
-		
-		
+
+	}
 
 	public boolean isInMine() {
 
 		RSObject[] Walls = Objects.find(17, 1441, 1440);
 		RSObject[] Essence = Objects.find(30, "Rune Essence", "Pure Essence");
-		
+
 		if (Walls != null && Walls.length > 0) {
 
 			if (Essence != null && Essence.length > 0) {

@@ -15,7 +15,7 @@ import scripts.EssenceMinerExtras.ZybezItem;
 
 public class Varibles extends Node {
 
-	EssenceMiner Miner = EssenceMiner.MainMiner;
+	EssenceMiner Miner = EssenceMiner.mainMiner;
 
 	@Override
 	public void execute() {
@@ -23,55 +23,55 @@ public class Varibles extends Node {
 		Miner.path = PathFinding.generatePath(Player.getPosition(),
 				Game.getDestination(), false);
 
-		Miner.CurrentXP = Skills.getXP(SKILLS.MINING);
+		Miner.currentXP = Skills.getXP(SKILLS.MINING);
 
-		Miner.GainedXP = Miner.CurrentXP - Miner.StartingXP;
+		Miner.gainedXP = Miner.currentXP - Miner.startingXP;
 
-		Miner.CurrentLevel = Skills.getActualLevel(SKILLS.MINING);
+		Miner.currentLevel = Skills.getActualLevel(SKILLS.MINING);
 
-		Miner.GainedLevel = Miner.CurrentLevel - Miner.StartingLevel;
+		Miner.gainedLevel = Miner.currentLevel - Miner.startingLevel;
 
-		Miner.RunTime = (System.currentTimeMillis() - Miner.StartTime) / 1000;
+		Miner.runTime = (System.currentTimeMillis() - Miner.startTime) / 1000;
 
-		Miner.hours = TimeUnit.SECONDS.toHours(Miner.RunTime);
+		Miner.hours = TimeUnit.SECONDS.toHours(Miner.runTime);
 
-		Miner.minutes = TimeUnit.SECONDS.toMinutes(Miner.RunTime
+		Miner.minutes = TimeUnit.SECONDS.toMinutes(Miner.runTime
 				- TimeUnit.HOURS.toSeconds(Miner.hours));
 
-		Miner.seconds = Miner.RunTime
+		Miner.seconds = Miner.runTime
 				- (TimeUnit.HOURS.toSeconds(Miner.hours) + TimeUnit.MINUTES
 						.toSeconds(Miner.minutes));
 
-		Miner.MinedOresHour = 0;
+		Miner.minedOresHour = 0;
 
-		Miner.Profit = Miner.MinedOres
+		Miner.profit = Miner.minedOres
 				* new ZybezItem("Rune Essence").getAverage();
 
-		if (Miner.Profit > 0) {
+		if (Miner.profit > 0) {
 
-			Miner.ProfitHour = (int) ((Miner.Profit * 3600) / Miner.RunTime);
-
-		}
-
-		if (Miner.MinedOres > 0) {
-
-			Miner.MinedOresHour = (int) ((Miner.MinedOres * 3600) / Miner.RunTime);
+			Miner.profitHour = (int) ((Miner.profit * 3600) / Miner.runTime);
 
 		}
 
-		if (Miner.GainedXP > 0) {
+		if (Miner.minedOres > 0) {
 
-			Miner.GainedXPHour = (int) ((Miner.GainedXP * 3600) / Miner.RunTime);
+			Miner.minedOresHour = (int) ((Miner.minedOres * 3600) / Miner.runTime);
+
+		}
+
+		if (Miner.gainedXP > 0) {
+
+			Miner.gainedXPHour = (int) ((Miner.gainedXP * 3600) / Miner.runTime);
 
 		}
 
 		int InvCount = Inventory.getCount("Rune Essence");
 
-		if (InvCount > Miner.InventoryCount) {
+		if (InvCount > Miner.inventoryCount) {
 
-			Miner.MinedOres += InvCount - Miner.InventoryCount;
+			Miner.minedOres += InvCount - Miner.inventoryCount;
 
-			Miner.InventoryCount = InvCount;
+			Miner.inventoryCount = InvCount;
 
 		}
 

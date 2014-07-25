@@ -6,38 +6,36 @@ import org.tribot.api2007.Skills.SKILLS;
 import scripts.EssenceMiner;
 import scripts.EssenceMinerExtras.Node;
 
-
-
 public class AntiBan extends Node {
 
 	@Override
 	public void execute() {
 
-		EssenceMiner.AntiBan.performCombatCheck();
+		EssenceMiner.antiBan.performCombatCheck();
 
-		EssenceMiner.AntiBan.performEquipmentCheck();
+		EssenceMiner.antiBan.performEquipmentCheck();
 
-		EssenceMiner.AntiBan.performExamineObject();
+		EssenceMiner.antiBan.performExamineObject();
 
-		EssenceMiner.AntiBan.performFriendsCheck();
+		EssenceMiner.antiBan.performFriendsCheck();
 
-		EssenceMiner.AntiBan.performLeaveGame();
+		EssenceMiner.antiBan.performLeaveGame();
 
-		EssenceMiner.AntiBan.performMusicCheck();
+		EssenceMiner.antiBan.performMusicCheck();
 
-		EssenceMiner.AntiBan.performPickupMouse();
+		EssenceMiner.antiBan.performPickupMouse();
 
-		EssenceMiner.AntiBan.performQuestsCheck();
+		EssenceMiner.antiBan.performQuestsCheck();
 
-		EssenceMiner.AntiBan.performRandomMouseMovement();
+		EssenceMiner.antiBan.performRandomMouseMovement();
 
-		EssenceMiner.AntiBan.performRandomRightClick();
+		EssenceMiner.antiBan.performRandomRightClick();
 
-		EssenceMiner.AntiBan.performRotateCamera();
+		EssenceMiner.antiBan.performRotateCamera();
 
-		EssenceMiner.AntiBan.performTimedActions(SKILLS.MINING);
+		EssenceMiner.antiBan.performTimedActions(SKILLS.MINING);
 
-		EssenceMiner.AntiBan.performXPCheck(SKILLS.MINING);
+		EssenceMiner.antiBan.performXPCheck(SKILLS.MINING);
 
 	}
 
