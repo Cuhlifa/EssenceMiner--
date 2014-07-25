@@ -35,7 +35,7 @@ public class WalkToAubury extends Node {
 
 			System.out.println("Walking to aubury");
 
-			if (Aubury != null && Aubury.length > 0) {
+			if (Aubury != null && Aubury.length > 0 && Aubury[0] != null) {
 
 				System.out.println("Aubury wasn't null");
 
