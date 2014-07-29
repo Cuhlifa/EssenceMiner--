@@ -26,7 +26,7 @@ import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
 import org.tribot.script.interfaces.Painting;
 
-import scripts.EssenceMinerExtras.Node;
+import scripts.EssenceMinerUtils.Node;
 import scripts.Nodes.*;
 
 @ScriptManifest(authors = { "Peticca10" }, category = "Mining", name = "EssenceMiner++")

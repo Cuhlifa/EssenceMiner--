@@ -1,4 +1,4 @@
-package scripts.EssenceMinerExtras;
+package scripts.EssenceMinerUtils.zybez;
 
 public class Offer {
 	private String contact;

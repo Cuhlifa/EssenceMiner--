@@ -15,7 +15,7 @@ import org.tribot.api2007.types.RSNPC;
 import org.tribot.api2007.types.RSObject;
 
 import scripts.EssenceMiner;
-import scripts.EssenceMinerExtras.Node;
+import scripts.EssenceMinerUtils.Node;
 
 public class LeaveEssence extends Node {
 

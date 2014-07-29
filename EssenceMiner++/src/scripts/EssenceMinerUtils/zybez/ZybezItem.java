@@ -1,4 +1,4 @@
-package scripts.EssenceMinerExtras;
+package scripts.EssenceMinerUtils.zybez;
 
 import java.io.BufferedReader;
 import java.io.IOException;

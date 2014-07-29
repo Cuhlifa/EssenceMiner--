@@ -10,8 +10,8 @@ import org.tribot.api2007.Skills;
 import org.tribot.api2007.Skills.SKILLS;
 
 import scripts.EssenceMiner;
-import scripts.EssenceMinerExtras.Node;
-import scripts.EssenceMinerExtras.ZybezItem;
+import scripts.EssenceMinerUtils.Node;
+import scripts.EssenceMinerUtils.zybez.ZybezItem;
 
 public class Varibles extends Node {
 

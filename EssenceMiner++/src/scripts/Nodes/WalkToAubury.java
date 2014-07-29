@@ -2,6 +2,8 @@ package scripts.Nodes;
 
 import org.tribot.api.DynamicClicking;
 import org.tribot.api.General;
+import org.tribot.api.Timing;
+import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Camera;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.NPCs;
@@ -9,6 +11,7 @@ import org.tribot.api2007.Objects;
 import org.tribot.api2007.PathFinding;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
+import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.ext.Doors;
 import org.tribot.api2007.types.RSModel;
 import org.tribot.api2007.types.RSNPC;
@@ -16,72 +19,74 @@ import org.tribot.api2007.types.RSObject;
 import org.tribot.api2007.types.RSTile;
 
 import scripts.EssenceMiner;
-import scripts.EssenceMinerExtras.Node;
+import scripts.EssenceMinerUtils.Node;
 
 public class WalkToAubury extends Node {
 
-	public static RSTile AuburyTile = new RSTile(3253, 3401);
+	public static RSTile auburyTile = new RSTile(3253, 3401);
 
 	@Override
 	public void execute() {
 
-		if (PathFinding.distanceTo(AuburyTile, false) > 5) {
+		if (PathFinding.distanceTo(auburyTile, false) > 5) {
 
-			Walking.blindWalkTo(AuburyTile);
+			Walking.blindWalkTo(auburyTile);
 
 		} else {
 
-			RSNPC[] Aubury = NPCs.find("Aubury");
+			final RSNPC[] aubury = NPCs.find("Aubury");
 
 			System.out.println("Walking to aubury");
 
-			if (Aubury != null && Aubury.length > 0 && Aubury[0] != null) {
+			if (aubury != null && aubury.length > 0 && aubury[0] != null) {
 
 				System.out.println("Aubury wasn't null");
 
-				if (PathFinding.canReach(Aubury[0].getPosition(), false)) {
+				if (PathFinding.canReach(aubury[0].getPosition(), false)) {
 					System.out.println("Aubury is reachable");
 
-					if (Aubury[0].isOnScreen()) {
+					if (aubury[0].isOnScreen()) {
 
 						System.out.println("Aubury is on screen");
 
-						Camera.setCameraRotation(Camera.getTileAngle(Aubury[0]
+						Camera.setCameraRotation(Camera.getTileAngle(aubury[0]
 								.getPosition()) - General.random(-30, 30));
 						General.sleep(100, 260);
 
-						RSModel AuburyModel = Aubury[0].getModel();
+						RSModel AuburyModel = aubury[0].getModel();
 						if (!EssenceMiner.mainMiner.isInMine()
 								&& AuburyModel != null) {
 
-							DynamicClicking.clickRSModel(Aubury[0].getModel(),
-									"Teleport");
+							if(DynamicClicking.clickRSModel(aubury[0].getModel(),"Teleport")){
+								
+								Timing.waitCondition(new Condition() {
+									
+									@Override
+									public boolean active() {
+									
+										return isInMine();
+									
+									}
+								}, 1000);
+								
+							}
 
 						}
 
 					} else {
 
-						if (Walking.blindWalkTo(AuburyTile)) {
-
-							System.out.println("Aubury is being walked to");
-
-							Camera.setCameraRotation(Camera
-									.getTileAngle(Aubury[0].getPosition())
-									- General.random(-30, 30));
-
-							General.sleep(100, 260);
-
-							RSModel AuburyModel1 = Aubury[0].getModel();
-							if (!EssenceMiner.mainMiner.isInMine()
-									&& AuburyModel1 != null) {
-
-								DynamicClicking.clickRSModel(AuburyModel1,
-										"Teleport");
-
+						WebWalking.walkTo(auburyTile);
+						
+						Timing.waitCondition(new Condition() {
+							
+							@Override
+							public boolean active() {
+								
+								return aubury[0].isOnScreen();
+							
 							}
-
-						}
-
+						}, 200);
+						
 					}
 
 				} else {
@@ -89,14 +94,14 @@ public class WalkToAubury extends Node {
 					System.out.println("checking doors");
 
 					RSTile[] path = PathFinding.generatePath(
-							Player.getPosition(), AuburyTile, false);
+							Player.getPosition(), auburyTile, false);
 
 					if (path != null && path.length > 0) {
 
 						for (RSTile tile : path) {
 
-							RSObject Doortile = Doors.getDoorAt(tile);
-							if (Doortile != null || Doors.isDoorAt(tile, false)) {
+							RSObject doorTile = Doors.getDoorAt(tile);
+							if (doorTile != null || Doors.isDoorAt(tile, false)) {
 
 								Doors.handleDoorAt(tile, true);
 

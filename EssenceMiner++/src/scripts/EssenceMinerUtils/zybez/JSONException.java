@@ -1,4 +1,4 @@
-package scripts.EssenceMinerExtras;
+package scripts.EssenceMinerUtils.zybez;
 
 /**
  * The JSONException is thrown by the JSON.org classes then things are amiss.

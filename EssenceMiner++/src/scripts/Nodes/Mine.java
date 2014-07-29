@@ -12,7 +12,7 @@ import org.tribot.api2007.types.RSModel;
 import org.tribot.api2007.types.RSObject;
 
 import scripts.EssenceMiner;
-import scripts.EssenceMinerExtras.Node;
+import scripts.EssenceMinerUtils.Node;
 
 public class Mine extends Node {
 

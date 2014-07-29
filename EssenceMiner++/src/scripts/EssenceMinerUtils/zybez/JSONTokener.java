@@ -1,4 +1,4 @@
-package scripts.EssenceMinerExtras;
+package scripts.EssenceMinerUtils.zybez;
 
 /*
  Copyright (c) 2002 JSON.org

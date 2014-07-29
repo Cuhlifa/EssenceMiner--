@@ -1,4 +1,4 @@
-package scripts.EssenceMinerExtras;
+package scripts.EssenceMinerUtils;
 
 public abstract class Node {
 

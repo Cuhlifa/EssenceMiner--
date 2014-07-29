@@ -1,6 +1,8 @@
 package scripts.Nodes;
 
 import org.tribot.api.General;
+import org.tribot.api.Timing;
+import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Game;
 import org.tribot.api2007.Inventory;
@@ -12,7 +14,7 @@ import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSObject;
 
 import scripts.EssenceMiner;
-import scripts.EssenceMinerExtras.Node;
+import scripts.EssenceMinerUtils.Node;
 
 public class Bank extends Node {
 
@@ -20,9 +22,6 @@ public class Bank extends Node {
 	public void execute() {
 
 		EssenceMiner.mainMiner.scriptState = "Banking";
-		EssenceMiner.mainMiner.path = PathFinding.generatePath(
-				Player.getPosition(), Game.getDestination(), false);
-		System.out.println("Walking to bank");
 
 		if (!Banking.isInBank()) {
 
@@ -32,10 +31,16 @@ public class Bank extends Node {
 
 			if (Banking.openBank()) {
 
-				System.out.println("Opening bank");
-
-				General.sleep(300, 550);
-
+				Timing.waitCondition(new Condition() {
+					
+					@Override
+					public boolean active() {
+						
+						return Banking.isBankScreenOpen();
+						
+					}
+				}, 1000);
+				
 				if (Banking.isBankScreenOpen()) {
 
 					System.out.println("Bank is open");
@@ -47,13 +52,23 @@ public class Bank extends Node {
 
 					EssenceMiner.antiBan.DELAY_TRACKER.NEW_OBJECT.reset();
 
-					Banking.close();
+					if(Banking.close()){
+						
+						Timing.waitCondition(new Condition() {
+							
+							@Override
+							public boolean active() {
+								
+								return Banking.close();
+								
+							}
+						}, 1000);
+						
+						Walking.blindWalkTo(WalkToAubury.auburyTile);
 
-					General.sleep(100, 250);
-
-					Walking.blindWalkTo(WalkToAubury.AuburyTile);
-
-					EssenceMiner.mainMiner.inventoryCount = 0;
+						EssenceMiner.mainMiner.inventoryCount = 0;
+						
+					}
 
 				}
 
