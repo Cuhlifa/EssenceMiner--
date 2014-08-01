@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import org.tribot.api.General;
 import org.tribot.api.input.Mouse;
 import org.tribot.api.util.ABCUtil;
+import org.tribot.api2007.Camera;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Login;
 import org.tribot.api2007.Objects;
@@ -84,6 +85,8 @@ public class EssenceMiner extends Script implements Painting {
 
 			if (Login.getLoginState() == STATE.INGAME) {
 
+				Camera.setCameraAngle(98);
+				
 				Mouse.setSpeed(General.random(110, 140));
 				
 				System.out.println("Checking Nodes");
@@ -97,7 +100,7 @@ public class EssenceMiner extends Script implements Painting {
 
 			}
 
-			General.sleep(1978, 3467);
+			General.sleep(100);
 
 		}
 

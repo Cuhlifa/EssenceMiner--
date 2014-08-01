@@ -18,7 +18,7 @@ public class Varibles extends Node {
 	EssenceMiner Miner = EssenceMiner.mainMiner;
 
 	@Override
-	public void execute() {
+	public int execute() {
 
 		Miner.path = PathFinding.generatePath(Player.getPosition(),
 				Game.getDestination(), false);
@@ -74,6 +74,8 @@ public class Varibles extends Node {
 			Miner.inventoryCount = InvCount;
 
 		}
+		
+		return 0;
 
 	}
 
