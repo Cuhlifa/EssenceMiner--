@@ -9,7 +9,7 @@ import scripts.EssenceMinerUtils.Node;
 public class AntiBan extends Node {
 
 	@Override
-	public void execute() {
+	public int execute() {
 
 		EssenceMiner.antiBan.performCombatCheck();
 		EssenceMiner.antiBan.performEquipmentCheck();
@@ -24,6 +24,7 @@ public class AntiBan extends Node {
 		EssenceMiner.antiBan.performRotateCamera();
 		EssenceMiner.antiBan.performTimedActions(SKILLS.MINING);
 		EssenceMiner.antiBan.performXPCheck(SKILLS.MINING);
+		return 0;
 
 	}
 

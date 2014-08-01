@@ -2,7 +2,7 @@ package scripts.EssenceMinerUtils;
 
 public abstract class Node {
 
-	public abstract void execute();
+	public abstract int execute();
 
 	public abstract boolean validate();
 

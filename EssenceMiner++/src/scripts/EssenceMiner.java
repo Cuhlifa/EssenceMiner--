@@ -60,8 +60,8 @@ public class EssenceMiner extends Script implements Painting {
 	public int startingXP;
 	public long startTime;
 
-	public boolean isInMine() {
-		System.out.println("Checking is in mine");
+	public static boolean isInMine() {
+		
 		if ((Objects.find(17, 1441, 1440).length > 0)) {
 
 			if (Objects.find(30, "Rune Essence", "Pure Essence").length > 0) {
@@ -80,7 +80,6 @@ public class EssenceMiner extends Script implements Painting {
 
 	public void Loop() {
 
-		// Node loop
 		while (true) {
 
 			if (Login.getLoginState() == STATE.INGAME) {
@@ -91,7 +90,7 @@ public class EssenceMiner extends Script implements Painting {
 				for (Node node : nodes) {
 
 					if (node.validate()) {
-						node.execute();
+						General.sleep(node.execute());
 					}
 
 				}
@@ -109,24 +108,9 @@ public class EssenceMiner extends Script implements Painting {
 
 		Graphics2D g2d = (Graphics2D) g;
 
-		// draw overlay
 		if (Login.getLoginState() == STATE.INGAME && overlay != null) {
 
 			g.drawImage(overlay, 8, 306, null);
-
-		}
-
-		// if (path != null && path.length > 0) {
-		//
-		// for (RSTile tile : path) {
-		//
-		// if (tile.isOnScreen()) {
-		// g2d.draw(Projection.getTileBoundsPoly(tile, 0));
-		// }
-		//
-		// }
-		//
-		// }
 
 		if (essence != null) {
 
@@ -148,6 +132,8 @@ public class EssenceMiner extends Script implements Painting {
 
 		g.drawString(profit + " (" + profitHour + ")", 85, 438);
 		g.drawString(currentLevel + " (" + gainedLevel + ")", 307, 438);
+		
+	}
 
 	}
 

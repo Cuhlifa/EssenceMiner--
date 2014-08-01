@@ -1,5 +1,6 @@
 package scripts.Nodes;
 
+import org.tribot.api.Clicking;
 import org.tribot.api.DynamicClicking;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -26,99 +27,46 @@ public class WalkToAubury extends Node {
 	public static RSTile auburyTile = new RSTile(3253, 3401);
 
 	@Override
-	public void execute() {
+	public int execute() {
 
-		if (PathFinding.distanceTo(auburyTile, false) > 5) {
+		final RSNPC[] aubury = NPCs.find("Aubury");
 
-			Walking.blindWalkTo(auburyTile);
+		System.out.println("Walking to aubury");
 
-		} else {
+		if (aubury != null && aubury.length > 0 && aubury[0] != null) {
 
-			final RSNPC[] aubury = NPCs.find("Aubury");
-
-			System.out.println("Walking to aubury");
-
-			if (aubury != null && aubury.length > 0 && aubury[0] != null) {
-
-				System.out.println("Aubury wasn't null");
-
-				if (PathFinding.canReach(aubury[0].getPosition(), false)) {
-					System.out.println("Aubury is reachable");
-
-					if (aubury[0].isOnScreen()) {
-
-						System.out.println("Aubury is on screen");
-
-						Camera.setCameraRotation(Camera.getTileAngle(aubury[0]
-								.getPosition()) - General.random(-30, 30));
-						General.sleep(100, 260);
-
-						RSModel AuburyModel = aubury[0].getModel();
-						if (!EssenceMiner.mainMiner.isInMine()
-								&& AuburyModel != null) {
-
-							if(DynamicClicking.clickRSModel(aubury[0].getModel(),"Teleport")){
-								
-								Timing.waitCondition(new Condition() {
-									
-									@Override
-									public boolean active() {
-									
-										return isInMine();
-									
-									}
-								}, 1000);
-								
-							}
-
-						}
-
-					} else {
-
-						WebWalking.walkTo(auburyTile);
-						
-						Timing.waitCondition(new Condition() {
-							
-							@Override
-							public boolean active() {
-								
-								return aubury[0].isOnScreen();
-							
-							}
-						}, 200);
-						
+			if(!aubury[0].isOnScreen()){
+				
+				WebWalking.walkTo(aubury[0].getPosition());
+				
+				Timing.waitCondition(new Condition() {
+					
+					@Override
+					public boolean active() {
+						return aubury[0].isOnScreen();
 					}
-
-				} else {
-
-					System.out.println("checking doors");
-
-					RSTile[] path = PathFinding.generatePath(
-							Player.getPosition(), auburyTile, false);
-
-					if (path != null && path.length > 0) {
-
-						for (RSTile tile : path) {
-
-							RSObject doorTile = Doors.getDoorAt(tile);
-							if (doorTile != null || Doors.isDoorAt(tile, false)) {
-
-								Doors.handleDoorAt(tile, true);
-
-							}
-
-						}
-
-					}
-
-				}
-
-				return;
-
+					
+				}, 10000);
+				
 			}
-
+			
+			if(DynamicClicking.clickRSTile(aubury[0], 1)){
+				
+				Timing.waitCondition(new Condition() {
+					
+					@Override
+					public boolean active() {
+						return EssenceMiner.isInMine();
+					}
+					
+				}, 5000);
+				
+			}
+			
 		}
 
+	return 0;
+		
 	}
 
 	public boolean isInMine() {

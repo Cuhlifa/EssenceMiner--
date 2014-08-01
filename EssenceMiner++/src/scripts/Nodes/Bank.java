@@ -19,13 +19,21 @@ import scripts.EssenceMinerUtils.Node;
 public class Bank extends Node {
 
 	@Override
-	public void execute() {
+	public int execute() {
 
 		EssenceMiner.mainMiner.scriptState = "Banking";
 
 		if (!Banking.isInBank()) {
 
 			WebWalking.walkToBank();
+			
+			Timing.waitCondition(new Condition() {
+				
+				@Override
+				public boolean active() {
+					return Banking.isInBank();
+				}
+			}, 20000);
 
 		} else {
 
@@ -35,9 +43,7 @@ public class Bank extends Node {
 					
 					@Override
 					public boolean active() {
-						
 						return Banking.isBankScreenOpen();
-						
 					}
 				}, 1000);
 				
@@ -51,66 +57,33 @@ public class Bank extends Node {
 							.next());
 
 					EssenceMiner.antiBan.DELAY_TRACKER.NEW_OBJECT.reset();
-
-					if(Banking.close()){
 						
-						Timing.waitCondition(new Condition() {
-							
-							@Override
-							public boolean active() {
-								
-								return Banking.close();
-								
-							}
-						}, 1000);
+					Timing.waitCondition(new Condition() {
 						
-						Walking.blindWalkTo(WalkToAubury.auburyTile);
+						@Override
+						public boolean active() {
+							return Inventory.getCount("Rune Essence","Pure Essence") == 0;
+						}
+					}, 1000);
+					
+					WebWalking.walkTo(WalkToAubury.auburyTile);
 
-						EssenceMiner.mainMiner.inventoryCount = 0;
+					EssenceMiner.mainMiner.inventoryCount = 0;
 						
-					}
-
 				}
 
 			}
 
 		}
 
-		return;
-
-	}
-
-	public boolean isInMine() {
-
-		RSObject[] Walls = Objects.find(17, 1441, 1440);
-		RSObject[] Essence = Objects.find(30, "Rune Essence", "Pure Essence");
-
-		if (Walls != null && Walls.length > 0) {
-
-			if (Essence != null && Essence.length > 0) {
-
-				return true;
-
-			} else {
-				return false;
-			}
-
-		} else {
-			return false;
-		}
+		return 0;
 
 	}
 
 	@Override
 	public boolean validate() {
 
-		if (Inventory.isFull() && !isInMine()) {
-
-			return true;
-
-		} else {
-			return false;
-		}
+		return Inventory.isFull() && !EssenceMiner.isInMine();
 
 	}
 
