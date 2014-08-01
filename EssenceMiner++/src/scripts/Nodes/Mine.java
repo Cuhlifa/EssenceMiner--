@@ -48,7 +48,7 @@ public class Mine extends Node {
 				
 			}
 			
-			if(Clicking.click(runeEssence[0])){
+			if(runeEssence[0].isOnScreen() && Clicking.click(runeEssence[0])){
 				
 				Timing.waitCondition(new Condition() {
 					
