@@ -63,19 +63,7 @@ public class EssenceMiner extends Script implements Painting {
 
 	public static boolean isInMine() {
 		
-		if ((Objects.find(17, 1441, 1440).length > 0)) {
-
-			if (Objects.find(30, "Rune Essence", "Pure Essence").length > 0) {
-
-				return true;
-
-			} else {
-				return false;
-			}
-
-		} else {
-			return false;
-		}
+		return (Objects.find(17, 1441, 1440).length > 0 && Objects.find(30, "Rune Essence", "Pure Essence").length > 0);
 
 	}
 
